@@ -10,3 +10,4 @@ pom.xml
 # Intellij IDEA project files
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/replstate.xml
