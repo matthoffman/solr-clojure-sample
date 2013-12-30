@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.codehaus.woodstox/wstx-asl:3.2.7">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/woodstox/wstx-asl/3.2.7/wstx-asl-3.2.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

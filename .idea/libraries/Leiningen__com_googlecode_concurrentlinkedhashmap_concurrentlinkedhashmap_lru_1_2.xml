@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru:1.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/concurrentlinkedhashmap/concurrentlinkedhashmap-lru/1.2/concurrentlinkedhashmap-lru-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

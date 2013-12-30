@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: jdk.tools:1.6">
+    <CLASSES>
+      <root url="jar:///usr/lib/jvm/java-7-oracle/lib/tools.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
