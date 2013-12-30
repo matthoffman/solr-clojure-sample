@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module cursive.leiningen.project.LeiningenProjectsManager.isLeinModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/dev" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Leiningen: ch.qos.logback/logback-classic:1.0.13" level="project" />
+    <orderEntry type="library" name="Leiningen: clojure-complete:0.2.3" level="project" />
+    <orderEntry type="library" name="Leiningen: com.codesignals/flux:0.2.0" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-logging:1.1.3" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.solr/solr-solrj:4.6.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.5.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.namespace:0.2.4" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.nrepl:0.2.3" level="project" />
+    <orderEntry type="library" name="Leiningen: ch.qos.logback/logback-core:1.0.13" level="project" />
+    <orderEntry type="library" name="Leiningen: org.slf4j/slf4j-api:1.7.5" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.solr/solr-core:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: com.google.guava/guava:14.0.1" level="project" />
+    <orderEntry type="library" name="Leiningen: com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru:1.2" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-cli:1.2" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-codec:1.7" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-fileupload:1.2.1" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-lang:2.6" level="project" />
+    <orderEntry type="library" name="Leiningen: joda-time:2.2" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.hadoop/hadoop-annotations:2.0.5-alpha" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.hadoop/hadoop-auth:2.0.5-alpha" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.hadoop/hadoop-common:2.0.5-alpha" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.hadoop/hadoop-hdfs:2.0.5-alpha" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-analyzers-common:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-analyzers-kuromoji:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-analyzers-phonetic:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-codecs:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-core:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-grouping:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-highlighter:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-memory:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-misc:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-queries:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-queryparser:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-spatial:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.lucene/lucene-suggest:4.4.0" level="project" />
+    <orderEntry type="library" name="Leiningen: org.restlet.jee/org.restlet.ext.servlet:2.1.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.restlet.jee/org.restlet:2.1.1" level="project" />
+    <orderEntry type="library" name="Leiningen: jdk.tools:1.6" level="project" />
+    <orderEntry type="library" name="Leiningen: com.google.protobuf/protobuf-java:2.4.0a" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-configuration:1.6" level="project" />
+    <orderEntry type="library" name="Leiningen: javax.servlet.jsp/jsp-api:2.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.mortbay.jetty/jetty-util:6.1.26" level="project" />
+    <orderEntry type="library" name="Leiningen: org.mortbay.jetty/jetty:6.1.26" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-collections:3.2.1" level="project" />
+    <orderEntry type="library" name="Leiningen: com.spatial4j/spatial4j:0.3" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-io:2.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpclient:4.2.6" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpmime:4.2.6" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.zookeeper/zookeeper:3.4.5" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Leiningen: org.codehaus.woodstox/wstx-asl:3.2.7" level="project" />
+    <orderEntry type="library" name="Leiningen: org.noggit/noggit:0.5" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpcore:4.2.5" level="project" />
+  </component>
+</module>
+
