@@ -1,0 +1,12 @@
+pom.xml
+*jar
+/lib/
+/classes/
+/target/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.nrepl-port
+# Intellij IDEA project files
+.idea/workspace.xml
+.idea/tasks.xml
