@@ -7,6 +7,7 @@
   (:require
     [clojure.java.io :as io]
     [clojure.java.javadoc :refer (javadoc)]
+    [clojure.edn :as edn]
     [clojure.pprint :refer (pprint)]
     [clojure.reflect :refer (reflect)]
     [clojure.repl :refer (apropos dir doc find-doc pst source)]
@@ -64,15 +65,6 @@
     [& args] (apply solr/query @system args))
 
 
-;; this will hold a counter...just a convenience for assigning unique IDs.
-;; Feel free to replace with something more sophisticated.
-(def id-counter (atom 0))
-
-;; equivalent to ++i. We increment, then return the incremented value. Again, we could keep this as a local var inside
-;; the function where we load things, if we prefer.
-(defn- id "Get the next sequential ID" [] (swap! id-counter inc))
-
-
 ;; Run (go) in your REPL to connect to a running Solr server, like the one in the exmaples/ directory of the Solr
 ;; distribution.
 ;; So, for example, download Solr from http://lucene.apache.org/solr/, unzip it, go into the examples directory, and run
@@ -84,10 +76,10 @@
   ;; now, let's load some data.
   ;; We'll read a file line-by-line and load it into Solr
   (flux/with-connection (conn)
-                        (with-open [rdr (io/reader "sonnets.txt")]
+                        (with-open [rdr (io/reader "sonnets.edn")]
                           (doseq [line (line-seq rdr)]
                             (println line)
-                            (flux/add {:id (id) :line_t line})) ; use the *_t convention to indicate that the field should be treated as text.
+                            (flux/add (edn/read-string line)))
                           (flux/commit)
                           (flux/query "*:*"))) ; one example query.
 

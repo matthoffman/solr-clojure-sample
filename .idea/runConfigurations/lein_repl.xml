@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="lein repl" type="ClojureREPL" factoryName="Local">
+    <setting name="useLein" value="true" />
+    <setting name="leinProjectName" value="clojr:0.0.1-SNAPSHOT" />
+    <module name="clojr" />
+    <setting name="jvmArgs" value="" />
+    <setting name="parameters" value="" />
+    <setting name="workingDir" value="$PROJECT_DIR$" />
+    <RunnerSettings RunnerId="Local REPL Run" />
+    <ConfigurationWrapper RunnerId="Local REPL Run" />
+    <method />
+  </configuration>
+</component>
