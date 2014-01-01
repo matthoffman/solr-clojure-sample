@@ -48,6 +48,8 @@
   (q "line_t:desire")
   (q "line_t:desire" {:deftype "edismax"}) ; send query args if you want
   (q "line_t:desire" {:deftype :edismax}) ; flux  will convert keywords into strings, so use them at will.
+  (q "{!edismax qf=\"line_t\"}desire") ; version with local variables
+
 
   )
 
