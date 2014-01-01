@@ -1,6 +1,9 @@
 (ns user
   "Tools for interactive development with the REPL. This file should
-  not be included in a production build of the application."
+  not be included in a production build of the application.
+
+  The system, start, stop, etc. convention is from Stuart Sierra:
+  http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded"
   (:require
     [clojure.java.io :as io]
     [clojure.java.javadoc :refer (javadoc)]
@@ -11,35 +14,76 @@
     [clojure.string :as str]
     [clojure.test :as test]
     [clojure.tools.namespace.repl :refer (refresh refresh-all)]
-    [blast.solr]))
+    [blast.solr :as solr]
+    [flux.client :as client]
+    [flux.embedded :as embedded]
+    [flux.http :as http]
+    [flux.core :as flux]))
 
+
+(def system
+  "A Var containing an object representing the application under
+  development."
+  (atom {}))
+
+(defn init
+  "Creates and initializes the system under development in the Var
+  #'system.
+  We initialize the system to the value of the solr/config map."
+  []
+  (reset! system solr/config))
+
+(defn start
+  "Starts the system running, updates the Var #'system."
+  []
+  (swap! system assoc :conn (solr/create-connection @system)))
+
+(defn stop
+  "Stops the system if it is currently running, updates the Var
+  #'system."
+  []
+  (when-let [conn (:conn @system)]
+    (swap! system assoc :conn (.shutdown conn))))
+
+(defn go
+  "Initializes and starts the system running."
+  []
+  (init)
+  (start)
+  :ready)
+
+(defn reset
+  "Stops the system, reloads modified source files, and restarts it."
+  []
+  (stop)
+  (refresh :after 'user/go))
+
+(defn conn "Get the connection from the system atom" [] (:conn @system))
+
+(defn q "Convenience method to send a query using the system in the #'system atom"
+    [& args] (apply solr/query @system args))
+
+
+;; this will hold a counter...just a convenience for assigning unique IDs.
+;; Feel free to replace with something more sophisticated.
+(def id-counter (atom 0))
+
+;; equivalent to ++i. We increment, then return the incremented value. Again, we could keep this as a local var inside
+;; the function where we load things, if we prefer.
+(defn- id "Get the next sequential ID" [] (swap! id-counter inc))
+
+
+;; Run (go) in your REPL to connect to a running Solr server, like the one in the exmaples/ directory of the Solr
+;; distribution.
+;; So, for example, download Solr from http://lucene.apache.org/solr/, unzip it, go into the examples directory, and run
+;; java -jar start.jar
+                                                    D
+;; Try running any of the following in your REPL...
 (comment
-  (require
-    '[clojure.java.io :as io]
-    '[flux.client :as client]
-    '[flux.embedded :as embedded]
-    '[flux.http :as http]
-    '[flux.core :as flux])
-
-  ;; Connect to a running Solr server, like the one in the exmaples/ directory of the Solr distribution.
-  ;; e.g. download Solr from http://lucene.apache.org/solr/, unzip it, go into the examples directory, and run
-  ;; java -jar start.jar
-  (def conn (http/create "http://localhost:8983/solr" :collection1))
-
-  ;; this will hold our counter...just a convenience for assigning unique IDs.
-  (def id-counter (atom 0))
-
-  ;; equivalent to ++i. We increment, then return the incremented value. Again, we could keep this as a local var inside
-  ;; the function where we load things, if we prefer.
-  (defn- id "Get the next sequential ID" [] (swap! id-counter inc))
-
-  ;; Flux also lets you start an embedded Solr server:
-  ;(def core (embedded/create-core "solr-home" "path/to/solr.xml"))
-  ;(def conn (embedded/create core :collection1))
 
   ;; now, let's load some data.
   ;; We'll read a file line-by-line and load it into Solr
-  (flux/with-connection conn
+  (flux/with-connection (conn)
                         (with-open [rdr (io/reader "sonnets.txt")]
                           (doseq [line (line-seq rdr)]
                             (println line)
@@ -47,11 +91,9 @@
                           (flux/commit)
                           (flux/query "*:*"))) ; one example query.
 
-  ;; relies on the hardcoded "conn" var to hold the connection. Bad form in a real system. Convenient from a REPL.
-  (defn q [& args] (flux/with-connection conn (apply flux/query args)))
-
   (q "line_t:desire")
   (q "line_t:desire" {:deftype "edismax"}) ; send query args if you want
   (q "line_t:desire" {:deftype :edismax}) ; flux  will convert keywords into strings, so use them at will.
+  (q "{!edismax qf=\"line_t\"}desire") ; version with local variables. Anything that's valid in a Solr query is valid here.
 
   )
