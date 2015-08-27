@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="REPL" type="ClojureREPL" factoryName="Local">
+    <setting name="useLein" value="true" />
+    <setting name="useClojureMain" value="false" />
+    <setting name="leinProjectName" value="clojr:0.0.1-SNAPSHOT" />
+    <module name="clojr" />
+    <setting name="jvmArgs" value="" />
+    <setting name="parameters" value="" />
+    <setting name="workingDir" value="$PROJECT_DIR$" />
+    <method>
+      <option name="Synchronize Leiningen" enabled="true" />
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
