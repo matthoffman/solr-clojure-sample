@@ -67,6 +67,9 @@
 (defn q "Convenience method to send a query using the system in the #'system atom"
     [& args] (apply solr/query @system args))
 
+(defn pq "Convenience method to send a query using the system in the #'system atom and pretty-print the results"
+  [& args] (pprint (apply q args)))
+
 (defn wipe-test-data []
   (flux/with-connection (conn)
                         (flux/delete-by-query "*:*")
@@ -91,13 +94,6 @@
 ;; Try running any of the following in your REPL...
 (comment
 
-  ;; now, let's load some data.
-  ;; We'll read a file line-by-line and load it into Solr
-
-  (q "line_t:desire")
-  (q "line_t:desire" {:deftype "edismax"}) ; send query args if you want
-  (q "line_t:desire" {:deftype :edismax}) ; flux  will convert keywords into strings, so use them at will.
-  (q "{!edismax qf=\"line_t\"}desire") ; version with local variables. Anything that's valid in a Solr query is valid here.
 
   ;; These are mainly pulled straight from Flux's unit tests:
 
@@ -126,33 +122,63 @@
                                     :created_tdt (java.util.Date.)}])
                         (flux/commit))
 
+  ;; pass in query options as a map
   (flux/with-connection (conn) (flux/query "*:*" {:sort "title_s desc"}))
 
-  (flux/with-connection (conn) (flux/query "title_t:\"last least\"~2"))
+  (flux/with-connection (conn) (flux/query "*:*" {:facet true :facet.field "author_s"}))
 
-  (flux/with-connection (conn) (flux/query "title_t:\"after third\"~2"))
+  ;; could also use keywords for things like facet.field:
+  (flux/with-connection (conn) (flux/query "*:*" {:facet true :facet.field :author_s}))
 
+  (flux/with-connection (conn) (flux/query "title_s:\"A document\"~2"))
 
-  (flux/query "title_t:black AND author_s:\"Glen Cook\"")
-  (flux/query "title_t:black OR author_s:\"Glen Cook\"")
+  (flux/with-connection (conn) (flux/query "title_s:\"document A\"~2"))
 
-  (flux/with-connection (conn) (flux/query "(title_t:black OR author_s:\"Glen Cook\") AND available_b:true"))
+  ;; conditionals supported in the default query parser:
+  (flux/with-connection (conn) (flux/query "title_s:test AND author_s:matt"))
 
-  (flux/with-connection (conn) (flux/query "title_t:weapons AND -title_t:bond AND available_b:true"))
+  (flux/with-connection (conn) (flux/query "title_s:test OR author_s:matt"))
 
-  (flux/query "internal_i:[* TO 5]")
+  ;; they can be arbitrarily nested, of course:
+  (flux/with-connection (conn) (flux/query "(title_s:test OR author_s:\"matt\") AND tags_ss:tag2"))
+
+  ;; negations work, too:
+  (flux/with-connection (conn) (flux/query "title_s:test AND -author_s:matt"))
+
+  ;; if we had numbers, we could do range queries like so:
+  (flux/with-connection (conn) (flux/query "internal_i:[* TO 5]"))
+
   (flux/with-connection (conn) (flux/query "internal_i:[15 TO *]" {:rows 100}))
+
+  ;; there's also an experimental feature (yanked from another fork) to programmatically build up queries, like so:
+  (flux/with-connection (conn)
+                        (flux/query "*:*"
+                                    (-> (c/with-filter (c/is :author_s "matt"))
+                                        (c/with-facets (c/fields :author_s))
+                                        (c/with-options {:page 2}))))
+
+  ;; now, let's load some data.
+  ;; We'll read a file line-by-line and load it into Solr
+  (flux/with-connection (conn)
+                        (flux/delete-by-query "*:*")
+                        (flux/commit))
+
+  (load-test-data)
+
+  (q "line_t:love")                                         ;; note what ranks highly
+
+  (q "line_t:love" {:deftype "edismax"}) ; send query args if you want
+
+  (q "line_t:love" {:deftype :edismax}) ; flux  will convert keywords into strings, so use them at will.
+
+  (q "line_t:love" {:facet true :facet.field "sonnet_i" :facet.limit 10 :facet.mincount 1})
+
+  (q "{!edismax qf=\"line_t\"}desire") ; version with local variables. Anything that's valid in a Solr query is valid here.
 
 
   (flux/with-connection (conn)
                    (flux/delete-by-id [(:id to-delete)])
                    (flux/commit))
-
-
-  (flux/query "*:*"
-               (-> (c/with-filter (c/is :category "car/BMW"))
-                   (c/with-facets (c/fields :build_year))
-                   (c/with-options {:page 2})))
   )
 
 
