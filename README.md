@@ -28,6 +28,11 @@ From the unpacked Solr distribution, run:
 
 That will start a sample Solr server in distributed ("cloud") mode. You can add `-f` to keep it in the foreground if you'd like.  
 
+Step 1.5
+--------
+At the time of writing, there isn't a released version of Flux that supports Solr 5.x. It is coming soon; meanwhile, you'll need to clone my fork of Flux ([https://github.com/matthoffman/flux]) and run `lein install` to make it available locally. 
+As soon as Flux 0.7.x is available in repositories, that won't be necessary. 
+
 Step 2
 ------
 
