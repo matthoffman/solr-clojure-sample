@@ -99,7 +99,7 @@
 
   (flux/with-connection (conn)
                         (flux/add {:id         (random-uuid)
-                                   :title_s    "A test document"
+                                   :title_t    "A test document"
                                    :created_tdt (java.util.Date.)
                                    :author_s   "matt"
                                    :tags_ss    ["tag1" "tag2" "tag3"]})
@@ -110,40 +110,40 @@
 
   (flux/with-connection (conn)
                         (flux/add [{:id         (random-uuid)
-                                    :title_s    "A second document"
+                                    :title_t    "A second document"
                                     :created_tdt (java.util.Date.)
                                     :tags_ss    ["tag2" "tag4"]}
                                    {:id         (random-uuid)
-                                    :title_s    "And a third document"
+                                    :title_t    "And a third document"
                                     :created_tdt (java.util.Date.)
                                     :tags_ss    ["tag3"]}
                                    {:id         (random-uuid)
-                                    :title_s    "tagless"
+                                    :title_t    "tagless"
                                     :created_tdt (java.util.Date.)}])
                         (flux/commit))
 
   ;; pass in query options as a map
-  (flux/with-connection (conn) (flux/query "*:*" {:sort "title_s desc"}))
+  (flux/with-connection (conn) (flux/query "*:*" {:sort "title_t desc"}))
 
   (flux/with-connection (conn) (flux/query "*:*" {:facet true :facet.field "author_s"}))
 
   ;; could also use keywords for things like facet.field:
   (flux/with-connection (conn) (flux/query "*:*" {:facet true :facet.field :author_s}))
 
-  (flux/with-connection (conn) (flux/query "title_s:\"A document\"~2"))
+  (flux/with-connection (conn) (flux/query "title_t:\"A document\"~2"))
 
-  (flux/with-connection (conn) (flux/query "title_s:\"document A\"~2"))
+  (flux/with-connection (conn) (flux/query "title_t:\"document A\"~2"))
 
   ;; conditionals supported in the default query parser:
-  (flux/with-connection (conn) (flux/query "title_s:test AND author_s:matt"))
+  (flux/with-connection (conn) (flux/query "title_t:test AND author_s:matt"))
 
-  (flux/with-connection (conn) (flux/query "title_s:test OR author_s:matt"))
+  (flux/with-connection (conn) (flux/query "title_t:test OR author_s:matt"))
 
   ;; they can be arbitrarily nested, of course:
-  (flux/with-connection (conn) (flux/query "(title_s:test OR author_s:\"matt\") AND tags_ss:tag2"))
+  (flux/with-connection (conn) (flux/query "(title_t:test OR author_s:\"matt\") AND tags_ss:tag2"))
 
   ;; negations work, too:
-  (flux/with-connection (conn) (flux/query "title_s:test AND -author_s:matt"))
+  (flux/with-connection (conn) (flux/query "title_t:test AND -author_s:matt"))
 
   ;; if we had numbers, we could do range queries like so:
   (flux/with-connection (conn) (flux/query "internal_i:[* TO 5]"))
@@ -189,7 +189,7 @@
 
   (pprint (flux/with-connection (conn) (flux/query "line_t:art" {:facet :true :facet.field "sonnet_i" :facet_counts 5})))
 
-  (flux/with-connection (conn) (flux/query "*:*" {:sort "title_s desc"}))
+  (flux/with-connection (conn) (flux/query "*:*" {:sort "title_t desc"}))
   (pprint (flux/with-connection (conn) (flux/query "line_t:\"lovely beauteous\"~5" {:facet :true :facet.field "sonnet_i"})))
   (pprint (flux/with-connection (conn) (flux/query "line_t:\"beauteous lovely\"~5" {:facet :true :facet.field "sonnet_i"})))
   (flux/with-connection (conn) (flux/query "*:*" (c/with-facets (c/fields :sonnet_i)) ))
